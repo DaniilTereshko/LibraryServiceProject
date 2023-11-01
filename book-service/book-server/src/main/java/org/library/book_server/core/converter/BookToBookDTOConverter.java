@@ -1,4 +1,4 @@
-package org.library.book_server.core.converters;
+package org.library.book_server.core.converter;
 
 import org.library.book_client.core.dto.BookDTO;
 import org.library.book_server.dao.entity.Book;
