@@ -1,0 +1,4 @@
+org\taskmanager\base_package\enums\ErrorType.class
+org\taskmanager\base_package\dto\PageDTO.class
+org\taskmanager\base_package\errors\ErrorResponse.class
+org\taskmanager\base_package\errors\StructuredErrorResponse.class
