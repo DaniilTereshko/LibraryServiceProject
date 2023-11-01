@@ -5,8 +5,6 @@ import org.library.book_client.core.dto.BookUpdateDTO;
 import org.library.book_server.dao.entity.Book;
 import org.springframework.data.domain.Page;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface IBookService {

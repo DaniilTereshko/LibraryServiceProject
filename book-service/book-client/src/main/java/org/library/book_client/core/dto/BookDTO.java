@@ -3,6 +3,7 @@ package org.library.book_client.core.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.library.book_client.core.enums.BookGenre;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class BookDTO {

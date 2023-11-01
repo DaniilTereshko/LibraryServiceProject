@@ -3,6 +3,7 @@ package org.library.book_client.core.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.library.book_client.core.enums.BookGenre;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class BookUpdateDTO {
@@ -13,12 +14,12 @@ public class BookUpdateDTO {
     private String description;
     private UUID author;
     @JsonProperty("dt_update")
-    private Long updateDate;
+    private LocalDateTime updateDate;
 
     public BookUpdateDTO() {
     }
 
-    public BookUpdateDTO(UUID uuid, String isbn, String title, BookGenre genre, String description, UUID author, Long updateDate) {
+    public BookUpdateDTO(UUID uuid, String isbn, String title, BookGenre genre, String description, UUID author, LocalDateTime updateDate) {
         this.uuid = uuid;
         this.isbn = isbn;
         this.title = title;
@@ -76,11 +77,11 @@ public class BookUpdateDTO {
         this.author = author;
     }
 
-    public Long getUpdateDate() {
+    public LocalDateTime getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Long updateDate) {
+    public void setUpdateDate(LocalDateTime updateDate) {
         this.updateDate = updateDate;
     }
 }
