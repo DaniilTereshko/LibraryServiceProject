@@ -1,6 +1,9 @@
 package org.library.book_client.core.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.library.book_client.core.enums.BookGenre;
 
 import java.time.LocalDateTime;
@@ -8,10 +11,17 @@ import java.util.UUID;
 
 public class BookUpdateDTO {
     private UUID uuid;
+    @NotBlank(message = "Указание ISBN обязательно")
+    @Size(max = 13, message = "Максимальный размер ISBN 13 символов")
     private String isbn;
+    @NotBlank(message = "Указание названия обязательно")
+    @Size(max = 60, message = "Максимальный размер названия 60 символов")
     private String title;
+    @NotNull(message = "Указание жанра обязательно")
+    @Size(max = 40, message = "Максимальный размер жанра 40 символов")
     private BookGenre genre;
     private String description;
+    @NotNull(message = "Указание автора обязательно")
     private UUID author;
     @JsonProperty("dt_update")
     private LocalDateTime updateDate;

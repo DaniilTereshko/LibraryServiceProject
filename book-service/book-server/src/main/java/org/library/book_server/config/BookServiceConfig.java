@@ -1,5 +1,6 @@
 package org.library.book_server.config;
 
+import jakarta.validation.Validator;
 import org.library.book_server.core.converter.ConversionServiceFactory;
 import org.library.book_server.dao.repository.IBookRepository;
 import org.library.book_server.service.api.IBookService;
@@ -14,7 +15,7 @@ public class BookServiceConfig {
         return new ConversionServiceFactory();
     }
     @Bean
-    public IBookService bookService(IBookRepository bookRepository) {
-        return new BookService(bookRepository);
+    public IBookService bookService(IBookRepository bookRepository, Validator validator) {
+        return new BookService(bookRepository, validator);
     }
 }
