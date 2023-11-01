@@ -36,6 +36,15 @@ public class Book {
     public Book() {
     }
 
+    public Book(UUID uuid, String isbn, String title, BookGenre genre, String description, UUID author) {
+        this.uuid = uuid;
+        this.isbn = isbn;
+        this.title = title;
+        this.genre = genre;
+        this.description = description;
+        this.author = author;
+    }
+
     public Book(UUID uuid, String isbn, String title, BookGenre genre, String description, UUID author, LocalDateTime createDate, LocalDateTime updateDate) {
         this.uuid = uuid;
         this.isbn = isbn;

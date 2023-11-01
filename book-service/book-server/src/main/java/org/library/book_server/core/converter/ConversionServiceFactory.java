@@ -1,4 +1,4 @@
-package org.library.book_server.core.converters;
+package org.library.book_server.core.converter;
 
 import org.springframework.context.support.ConversionServiceFactoryBean;
 import org.springframework.core.convert.ConversionService;

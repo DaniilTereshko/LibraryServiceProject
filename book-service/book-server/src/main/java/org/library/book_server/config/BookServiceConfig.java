@@ -1,6 +1,6 @@
 package org.library.book_server.config;
 
-import org.library.book_server.core.converters.ConversionServiceFactory;
+import org.library.book_server.core.converter.ConversionServiceFactory;
 import org.library.book_server.dao.repository.IBookRepository;
 import org.library.book_server.service.api.IBookService;
 import org.library.book_server.service.impl.BookService;
