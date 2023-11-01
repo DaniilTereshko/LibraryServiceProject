@@ -41,4 +41,9 @@ public class BookController{
             @RequestBody BookUpdateDTO bookUpdateDTO){
         return null;
     }
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<BookDTO> delete(
+            @PathVariable UUID uuid){
+        return null;
+    }
 }
