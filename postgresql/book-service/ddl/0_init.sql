@@ -1,5 +1,5 @@
 CREATE SCHEMA book_service
-    AUTHORIZATION postgres;
+    AUTHORIZATION root;
 
 CREATE TABLE book_service.books
 (
@@ -15,4 +15,4 @@ CREATE TABLE book_service.books
 );
 
 ALTER TABLE IF EXISTS book_service.books
-    OWNER to postgres;
+    OWNER to root;
