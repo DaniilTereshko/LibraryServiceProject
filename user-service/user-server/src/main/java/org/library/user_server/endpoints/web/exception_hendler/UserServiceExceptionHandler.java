@@ -1,17 +1,16 @@
-package org.library.book_server.endpoints.web.exception_hendler;
+package org.library.user_server.endpoints.web.exception_hendler;
 
 import jakarta.validation.ConstraintViolationException;
-import org.library.book_server.core.exception.IncorrectDataException;
-import org.library.book_server.core.exception.NotFoundException;
-import org.library.book_server.core.exception.VersionsMatchException;
+import org.library.base_package.errors.ErrorResponse;
+import org.library.base_package.errors.StructuredErrorResponse;
+import org.library.user_server.core.exception.EmailAlreadyTakenException;
+import org.library.user_server.core.exception.LoginException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.library.base_package.enums.ErrorType;
-import org.library.base_package.errors.ErrorResponse;
-import org.library.base_package.errors.StructuredErrorResponse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,33 +27,25 @@ public class UserServiceExceptionHandler {
                 .forEach(v -> errors.put(v.getPropertyPath().toString(), v.getMessage()));
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ErrorResponse> handleBadRequest(){
-        ErrorResponse response = new ErrorResponse(ErrorType.ERROR, NOT_READABLE);
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-    }
     @ExceptionHandler({RuntimeException.class, Error.class})
     public ResponseEntity<ErrorResponse> handleInnerError(){
         ErrorResponse response = new ErrorResponse(ErrorType.ERROR, INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<?> handleNotFoundError(NotFoundException exception){
-        if(exception.getField() != null){
-            StructuredErrorResponse response = new StructuredErrorResponse(ErrorType.STRUCTURED_ERROR, new HashMap<>());
-            response.getErrors().put(exception.getField(), exception.getMessage());
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }
-        ErrorResponse response = new ErrorResponse(ErrorType.ERROR, exception.getMessage());
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponse> handleBadRequest(){
+        ErrorResponse response = new ErrorResponse(ErrorType.ERROR, NOT_READABLE);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
-    @ExceptionHandler(VersionsMatchException.class)
-    public ResponseEntity<ErrorResponse> handleVersionsMathError(VersionsMatchException exception){
-        ErrorResponse response = new ErrorResponse(ErrorType.ERROR, exception.getMessage());
+    @ExceptionHandler(EmailAlreadyTakenException.class)
+    public ResponseEntity<StructuredErrorResponse> handleEmailTakenError(EmailAlreadyTakenException exception){
+        StructuredErrorResponse response = new StructuredErrorResponse(ErrorType.STRUCTURED_ERROR, new HashMap<>());
+        response.getErrors().put(exception.getField(), exception.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
-    @ExceptionHandler(IncorrectDataException.class)
-    public ResponseEntity<ErrorResponse> handleIncorrectDataError(IncorrectDataException exception){
+
+    @ExceptionHandler(LoginException.class)
+    public ResponseEntity<ErrorResponse> handleLoginError(LoginException exception){
         ErrorResponse response = new ErrorResponse(ErrorType.ERROR, exception.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }

@@ -3,7 +3,7 @@ package org.library.book_server.endpoints.web.util;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
-import org.taskmanager.base_package.dto.PageDTO;
+import org.library.base_package.dto.PageDTO;
 
 @Component
 public class PageConverter {

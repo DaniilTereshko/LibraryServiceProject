@@ -1,5 +1,5 @@
 CREATE SCHEMA author_service
-    AUTHORIZATION postgres;
+    AUTHORIZATION root;
 
 CREATE TABLE author_service.author
 (
@@ -9,4 +9,4 @@ CREATE TABLE author_service.author
 );
 
 ALTER TABLE IF EXISTS author_service.author
-    OWNER to postgres;
+    OWNER to root;
