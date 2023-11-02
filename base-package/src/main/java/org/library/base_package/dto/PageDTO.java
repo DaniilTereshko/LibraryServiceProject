@@ -1,4 +1,4 @@
-package org.taskmanager.base_package.dto;
+package org.library.base_package.dto;
 
 import java.util.List;
 

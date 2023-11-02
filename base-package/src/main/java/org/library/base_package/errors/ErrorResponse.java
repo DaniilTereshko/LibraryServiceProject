@@ -1,6 +1,6 @@
-package org.taskmanager.base_package.errors;
+package org.library.base_package.errors;
 
-import org.taskmanager.base_package.enums.ErrorType;
+import org.library.base_package.enums.ErrorType;
 
 public class ErrorResponse {
     private ErrorType logref;
