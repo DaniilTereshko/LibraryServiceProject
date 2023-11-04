@@ -1,0 +1,16 @@
+C:\Users\danii\Desktop\LibraryServiceProject\base-package\src\main\java\org\library\base_package\dto\library_service\RecordDTO.java
+C:\Users\danii\Desktop\LibraryServiceProject\base-package\src\main\java\org\library\base_package\dto\user_service\UserDetailsDTO.java
+C:\Users\danii\Desktop\LibraryServiceProject\base-package\src\main\java\org\library\base_package\dto\library_service\RecordCreateDTO.java
+C:\Users\danii\Desktop\LibraryServiceProject\base-package\src\main\java\org\library\base_package\enums\user_service\UserRole.java
+C:\Users\danii\Desktop\LibraryServiceProject\base-package\src\main\java\org\library\base_package\dto\book_service\BookCreateDTO.java
+C:\Users\danii\Desktop\LibraryServiceProject\base-package\src\main\java\org\library\base_package\enums\book_service\BookGenre.java
+C:\Users\danii\Desktop\LibraryServiceProject\base-package\src\main\java\org\library\base_package\dto\book_service\BookUpdateDTO.java
+C:\Users\danii\Desktop\LibraryServiceProject\base-package\src\main\java\org\library\base_package\errors\ErrorResponse.java
+C:\Users\danii\Desktop\LibraryServiceProject\base-package\src\main\java\org\library\base_package\dto\library_service\RecordUpdateDTO.java
+C:\Users\danii\Desktop\LibraryServiceProject\base-package\src\main\java\org\library\base_package\dto\user_service\UserRegistrationDTO.java
+C:\Users\danii\Desktop\LibraryServiceProject\base-package\src\main\java\org\library\base_package\dto\book_service\BookDTO.java
+C:\Users\danii\Desktop\LibraryServiceProject\base-package\src\main\java\org\library\base_package\errors\StructuredErrorResponse.java
+C:\Users\danii\Desktop\LibraryServiceProject\base-package\src\main\java\org\library\base_package\dto\user_service\TokenDTO.java
+C:\Users\danii\Desktop\LibraryServiceProject\base-package\src\main\java\org\library\base_package\dto\PageDTO.java
+C:\Users\danii\Desktop\LibraryServiceProject\base-package\src\main\java\org\library\base_package\dto\user_service\UserLoginDTO.java
+C:\Users\danii\Desktop\LibraryServiceProject\base-package\src\main\java\org\library\base_package\enums\ErrorType.java

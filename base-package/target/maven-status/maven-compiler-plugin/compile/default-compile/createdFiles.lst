@@ -1,0 +1,16 @@
+org\library\base_package\errors\ErrorResponse.class
+org\library\base_package\dto\book_service\BookUpdateDTO.class
+org\library\base_package\errors\StructuredErrorResponse.class
+org\library\base_package\dto\library_service\RecordCreateDTO.class
+org\library\base_package\dto\user_service\UserLoginDTO.class
+org\library\base_package\enums\user_service\UserRole.class
+org\library\base_package\dto\library_service\RecordUpdateDTO.class
+org\library\base_package\enums\ErrorType.class
+org\library\base_package\dto\book_service\BookDTO.class
+org\library\base_package\dto\user_service\TokenDTO.class
+org\library\base_package\dto\user_service\UserRegistrationDTO.class
+org\library\base_package\dto\user_service\UserDetailsDTO.class
+org\library\base_package\dto\PageDTO.class
+org\library\base_package\dto\library_service\RecordDTO.class
+org\library\base_package\dto\book_service\BookCreateDTO.class
+org\library\base_package\enums\book_service\BookGenre.class

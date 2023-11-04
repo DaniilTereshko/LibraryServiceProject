@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: library-service
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    properties:
+      hibernate.default_schema: library-service
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://library-db:5432/library-service
+    username: root
+    password: root
+
+app:
+  user-url: http://user-service:8080/internal/user
+
+server:
+  port: 8080
+
+jwt:
+  secret: NDQ1ZjAzNjQtMzViZi00MDRjLTljZjQtNjNjYWIyZTU5ZDYw
+  issuer: LibraryService
+
