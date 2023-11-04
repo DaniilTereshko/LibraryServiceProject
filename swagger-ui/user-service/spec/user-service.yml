@@ -1,0 +1,182 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Сервис Библиотеки
+
+servers:
+  - url: http://{host}:{port}
+    description: custom server
+    variables:
+      host:
+        description: host name
+        default: localhost
+      port:
+        description: port value
+        default: "80"
+
+tags:
+  - name: "Личный кабинет"
+    description: "Доступ к личному кабинету"
+
+paths:
+  /api/v1/users/registration:
+    post:
+      tags:
+        - "Личный кабинет"
+      summary: "Самостоятельная регистрация пользователя"
+      requestBody:
+        $ref: "#/components/requestBodies/RegistrationUser"
+      responses:
+        '201':
+          description: "Пользователь зарегистрирован"
+        '400':
+          $ref: '#/components/responses/Bad_Request'
+        '500':
+          $ref: '#/components/responses/Internal_Server_Error'
+  /api/v1/users/login:
+    post:
+      tags:
+        - "Личный кабинет"
+      summary: "Вход"
+      requestBody:
+        $ref: "#/components/requestBodies/LoginUser"
+      responses:
+        '200':
+          description: "Вход выполнен. Токен для Authorization Header"
+          content:
+            application/jwt:
+              schema:
+                type: string
+        '400':
+          $ref: '#/components/responses/Bad_Request'
+        '500':
+          $ref: '#/components/responses/Internal_Server_Error'
+components:
+  requestBodies:
+    RegistrationUser:
+      description: Тело для регистрации пользователя
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserRegistration'
+    LoginUser:
+      description: Тело для входа
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserLogin'
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    Bad_Request:
+      description: Запрос некорректен. Сервер не может обработать запрос
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - type: array
+                items:
+                  $ref: '#/components/schemas/t_error_response'
+              - $ref: '#/components/schemas/t_structured_error_response'
+          examples:
+            t_error_response:
+              value:
+                - logref: error
+                  message:  Запрос содержит некорректные данные. Измените запрос и отправьте его ещё раз
+            t_structured_error_response:
+              value:
+                logref: structured_error
+                errors:
+                  - field: time_unit
+                    message: Поле должно быть положительным числом
+    Unauthorized:
+      description: Для выполнения запроса на данный адрес требуется передать токен авторизации
+    Forbidden:
+      description: Данному токену авторизации запрещено выполнять запроса на данный адрес
+    Internal_Server_Error:
+      description: Внутренняя ошибка сервера. Сервер не смог корректно обработать запрос
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/t_error_response'
+          example:
+            - logref: error
+              message:  Сервер не смог корректно обработать запрос. Пожалуйста обратитесь к администратору
+  schemas:
+    UserRegistration:
+      type: object
+      description: Пользователь
+      properties:
+        mail:
+          type: string
+          description: "Электронная почта"
+        password:
+          type: string
+          description: "Пароль"
+    UserLogin:
+      type: object
+      description: Пользователь
+      properties:
+        mail:
+          type: string
+          description: "Электронная почта"
+        password:
+          type: string
+          description: "Пароль"
+
+    t_error_response:
+      type: object
+      description: Ошибка. Содержит общее описание ошибки
+      required:
+        - logref
+        - message
+      properties:
+        logref:
+          type: string
+          description: |
+            Тип ошибки (предназначено для машинной обработки):
+              * `error` - Признак что ошибка не привязана к полю
+          enum:
+            - "error"
+        message:
+          description: Сообщение об ошибке
+          type: string
+          example: Запрос содержит некорректные данные. Измените запрос и отправьте его ещё раз
+
+    t_structured_error_response:
+      type: object
+      description: Ошибка. Содержит описание ошибок с отсылками на поля сущности
+      required:
+        - logref
+        - errors
+      properties:
+        logref:
+          type: string
+          description: |
+            Тип ошибки (предназначено для машинной обработки):
+              * `structured_error` - Признак что ошибка привязана к полю
+          enum:
+            - "structured_error"
+        errors:
+          description: Список ошибок
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Сообщение об ошибке
+                example: Должно быть положительным числом
+              field:
+                type: string
+                description: Наименование поля с которым связано сообщение
+                example: time_unit

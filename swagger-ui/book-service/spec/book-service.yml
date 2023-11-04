@@ -1,0 +1,462 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Сервис Библиотеки
+
+servers:
+  - url: http://{host}:{port}
+    description: custom server
+    variables:
+      host:
+        description: host name
+        default: localhost
+      port:
+        description: port value
+        default: "80"
+        
+tags:
+  - name: "Книги"
+    description: "Информация о книгах, управляемой системой"
+    
+paths:
+  /api/v1/book:
+    post:
+      tags:
+        - "Книги"
+      summary: "Добавление новой книги"
+      security:
+        - bearerAuth: [USER]
+      parameters:
+        - in: query
+          name: from
+          schema:
+            type: string
+          description: Дата(dd.MM.yyyy HH:mm) начала брони. Должна быть не позднее текущей даты
+          required: true
+        - in: query
+          name: to
+          schema:
+            type: string
+          description: Дата(dd.MM.yyyy HH:mm) конца брони. Должна быть не раньше даты начала. Разница между датой начала и конца должна быть минимум 1 час максимум неделя
+          required: true
+      requestBody:
+        $ref: "#/components/requestBodies/CreateBook"
+      responses:
+        '201':
+          description: "Книга добавлена"
+        '400':
+          $ref: '#/components/responses/Bad_Request'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/Internal_Server_Error'
+    get:
+      tags:
+        - "Книги"
+      summary: "Получить страницу книг"
+      security:
+        - bearerAuth: [USER]
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+          description: Номер страницы
+          required: false
+        - in: query
+          name: size
+          schema:
+            type: integer
+            minimum: 1
+            default: 20
+          description: Размер страницы
+          required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageOfBook'
+        '400':
+          $ref: '#/components/responses/Bad_Request'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/Internal_Server_Error'
+  /api/v1/book/free:
+    get:
+      tags:
+        - "Книги"
+      summary: "Получение всех свободных книг на текущую дату"
+      security:
+        - bearerAuth: [USER]
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+          description: Номер страницы
+          required: false
+        - in: query
+          name: size
+          schema:
+            type: integer
+            minimum: 1
+            default: 20
+          description: Размер страницы
+          required: false
+      responses:
+        '201':
+          description: OK
+        '400':
+          $ref: '#/components/responses/Bad_Request'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/Internal_Server_Error'
+  /api/v1/book/isbn/{isbn}:
+    get:
+      tags:
+        - "Книги"
+      summary: "Получить информацию о книге по ISBN"
+      security:
+        - bearerAuth: [USER]
+      parameters:
+        - in: path
+          name: isbn
+          description: "ISBN книги"
+          required: true
+          schema:
+            type: string
+            format: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          $ref: '#/components/responses/Bad_Request'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/Internal_Server_Error'
+  /api/v1/book/{uuid}:
+    get:
+      tags:
+        - "Книги"
+      summary: "Получить информацию о книге"
+      security:
+        - bearerAuth: [USER]
+      parameters:
+        - in: path
+          name: uuid
+          description: "Идентификатор книги"
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          $ref: '#/components/responses/Bad_Request'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/Internal_Server_Error'
+    delete:
+      tags:
+        - "Книги"
+      summary: "Удалить книгу"
+      security:
+        - bearerAuth: [USER]
+      parameters:
+        - in: path
+          name: uuid
+          description: "Идентификатор книги"
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: "Книга удалена"
+        '400':
+          $ref: '#/components/responses/Bad_Request'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/Internal_Server_Error'
+          
+  /api/v1/users/{uuid}/dt_update/{dt_update}:
+    put:
+      tags:
+        - "Книги"
+      summary: "Редактировать информацию о книге"
+      security:
+        - bearerAuth: [USER]
+      parameters:
+        - in: path
+          name: uuid
+          description: "Идентификатор книги"
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - in: path
+          name: dt_update
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: "Дата последнего обновления записи"
+      requestBody:
+        $ref: "#/components/requestBodies/CreateBook"
+      responses:
+        '200':
+          description: "Книга обновлена"
+        '400':
+          $ref: '#/components/responses/Bad_Request'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/Internal_Server_Error'
+          
+components:
+  requestBodies:
+    CreateBook:
+      description: Тело для создания Книги
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BookCreate'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    Bad_Request:
+      description: Запрос некорректен. Сервер не может обработать запрос
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - type: array
+                items:
+                  $ref: '#/components/schemas/t_error_response'
+              - $ref: '#/components/schemas/t_structured_error_response'
+          examples:
+            t_error_response:
+              value:
+                - logref: error
+                  message:  Запрос содержит некорректные данные. Измените запрос и отправьте его ещё раз
+            t_structured_error_response:
+              value:
+                logref: structured_error
+                errors:
+                  - field: time_unit
+                    message: Поле должно быть положительным числом
+    Unauthorized:
+      description: Для выполнения запроса на данный адрес требуется передать токен авторизации
+    Forbidden:
+      description: Данному токену авторизации запрещено выполнять запроса на данный адрес
+    Internal_Server_Error:
+      description: Внутренняя ошибка сервера. Сервер не смог корректно обработать запрос
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/t_error_response'
+          example:
+            - logref: error
+              message:  Сервер не смог корректно обработать запрос. Пожалуйста обратитесь к администратору
+  schemas:
+    BookGenre:
+      type: string
+      description: |
+        Жанр книги:
+          * `NOVEL` - Роман
+          * `DRAMA` - Драма
+          * `DETECTIVE` - Детектив
+      enum:
+        - "NOVEL"
+        - "DRAMA"
+        - "DETECTIVE"
+    Book:
+      type: object
+      description: Книга
+      properties:
+        uuid:
+          description: Уникальный идентификатор сущности
+          type: string
+          format: uuid
+          readOnly: true
+        isbn:
+          type: string
+          description: "ISBN"
+        title:
+          type: string
+          description: "Название"
+        description:
+          type: string
+          description: "Описание"
+        author:
+          type: string
+          description: "Автор"
+        genre:
+          $ref: '#/components/schemas/BookGenre'
+        dt_create:
+          description: Дата создания сущности (linux time)
+          type: number
+          format: int64
+          readOnly: true
+        dt_update:
+          description: Дата последнего обновления сущности (linux time)
+          type: integer
+          format: int64
+          readOnly: true
+    BookCreate:
+      type: object
+      description: Создание книги
+      properties:
+        isbn:
+          type: string
+          description: "ISBN"
+        title:
+          type: string
+          description: "Название"
+        description:
+          type: string
+          description: "Описание"
+        author:
+          type: string
+          description: "Автор"
+        genre:
+          $ref: '#/components/schemas/BookGenre'
+
+    PageOfBook:
+      type: object
+      description: Страница пользователей
+      allOf:
+        - $ref: '#/components/schemas/t_page'
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Book'
+
+    t_page:
+      type: object
+      required:
+        - number
+        - size
+        - total_pages
+        - total_elements
+        - content
+        - first
+        - number_of_elements
+        - last
+      description: Страница
+      properties:
+        number:
+          description: Номер текущей запрошенной страницы
+          type: integer
+          format: int32
+        size:
+          description: Запрошенное количество элементов на страницу
+          type: integer
+          format: int32
+        total_pages:
+          description: Всего количество страниц учитывающих запрашиваемое количество элементов на страницу
+          type: integer
+          format: int32
+        total_elements:
+          description: Всего количество записей соответствующих запросу
+          type: integer
+          format: int64
+        first:
+          description: Признак является ли страница первой
+          type: boolean
+        number_of_elements:
+          description: Количество элементов на текущей странице
+          type: integer
+          format: int32
+        last:
+          description: Признак является ли страница последней
+          type: boolean
+
+    t_error_response:
+      type: object
+      description: Ошибка. Содержит общее описание ошибки
+      required:
+        - logref
+        - message
+      properties:
+        logref:
+          type: string
+          description: |
+            Тип ошибки (предназначено для машинной обработки):
+              * `error` - Признак что ошибка не привязана к полю
+          enum:
+            - "error"
+        message:
+          description: Сообщение об ошибке
+          type: string
+          example: Запрос содержит некорректные данные. Измените запрос и отправьте его ещё раз
+
+    t_structured_error_response:
+      type: object
+      description: Ошибка. Содержит описание ошибок с отсылками на поля сущности
+      required:
+        - logref
+        - errors
+      properties:
+        logref:
+          type: string
+          description: |
+            Тип ошибки (предназначено для машинной обработки):
+              * `structured_error` - Признак что ошибка привязана к полю
+          enum:
+            - "structured_error"
+        errors:
+          description: Список ошибок
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Сообщение об ошибке
+                example: Должно быть положительным числом
+              field:
+                type: string
+                description: Наименование поля с которым связано сообщение
+                example: time_unit
