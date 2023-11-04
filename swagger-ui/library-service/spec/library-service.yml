@@ -27,6 +27,10 @@ paths:
       responses:
         '201':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageOfRecord'
         '400':
           $ref: '#/components/responses/Bad_Request'
         '500':
