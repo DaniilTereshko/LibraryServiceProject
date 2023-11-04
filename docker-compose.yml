@@ -1,0 +1,101 @@
+version: '3.5'
+services:
+  user-db:
+    build: postgresql
+    depends_on:
+      - pgadmin
+    image: libraryservice_postgresql:1.0.7
+    restart: always
+    environment:
+      POSTGRES_DB: user-service
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - ./postgresql/user-service/ddl/0_init.sql:/docker-entrypoint-initdb.d/0_init.sql
+      - ./postgres-data/user-service:/var/lib/postgresql/data
+    networks:
+      - libraryservice_ntwrk
+
+  book-db:
+    build: postgresql
+    depends_on:
+      - pgadmin
+    image: libraryservice_postgresql:1.0.7
+    restart: always
+    environment:
+      POSTGRES_DB: book-service
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - ./postgresql/book-service/ddl/0_init.sql:/docker-entrypoint-initdb.d/0_init.sql
+      - ./postgres-data/book-service:/var/lib/postgresql/data
+    networks:
+      - libraryservice_ntwrk
+
+  library-db:
+    build: postgresql
+    depends_on:
+      - pgadmin
+    image: libraryservice_postgresql:1.0.8
+    restart: always
+    environment:
+      POSTGRES_DB: library-service
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - ./postgresql/library-service/ddl/0_init.sql:/docker-entrypoint-initdb.d/0_init.sql
+      - ./postgres-data/library-service:/var/lib/postgresql/data
+    networks:
+      - libraryservice_ntwrk
+
+  pgadmin:
+    build: pgadmin
+    image: taskmanager_pgadmin:1.0.5
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "82:80"
+    networks:
+      - libraryservice_ntwrk
+
+  user-service:
+    build: user-service
+    depends_on:
+      - user-db
+    image: libraryservice_user-service:1.0.14
+    networks:
+      - libraryservice_ntwrk
+
+  book-service:
+    build: book-service
+    depends_on:
+      - book-db
+    image: libraryservice_book-service:1.0.18
+    networks:
+      - libraryservice_ntwrk
+
+  library-service:
+    build: library-service
+    depends_on:
+      - library-db
+    image: libraryservice_library-service:1.0.27
+    networks:
+      - libraryservice_ntwrk
+
+  proxy:
+    build: proxy
+    depends_on:
+      - user-service
+      - library-service
+      - book-service
+    image: libraryservice_proxy:1.0.5
+    ports:
+      - "80:80"
+    networks:
+      - libraryservice_ntwrk
+
+networks:
+  libraryservice_ntwrk:
+    name: libraryservice_ntwrk

@@ -1,0 +1,350 @@
+{
+	"info": {
+		"_postman_id": "60dc9bc3-1b70-4125-b26c-6e3721fcc0cf",
+		"name": "LibraryServiceProject",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25816958"
+	},
+	"item": [
+		{
+			"name": "UserService",
+			"item": [
+				{
+					"name": "registration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mail\": \"daniiltereshko123@gmail.com\",\r\n    \"password\": \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/v1/users/registration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"mail\": \"daniiltereshko123@gmail.com\",\r\n            \"password\": \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/v1/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BookService",
+			"item": [
+				{
+					"name": "save",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYW5paWx0ZXJlc2hrbzEyM0BnbWFpbC5jb20iLCJpc3MiOiJMaWJyYXJ5U2VydmljZSIsImlhdCI6MTY5OTAxODgzNiwiZXhwIjoxNjk5NjIzNjM2fQ.-tEXOTxwAfSpIX8MUYkclbur8zYyPwKvTvywKHm8syfTI4Nf6tx7UCEqCzexzVdXwdijVHnqB_TpYI5jk1CBLg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"isbn\": \"1234567899999\",\r\n    \"title\": \"Книга 1\",\r\n    \"genre\": \"DRAMA\",\r\n    \"description\": \"Описания нет\",\r\n    \"author\": \"Пушкин А.С.\",\r\n    \"record\": {\r\n        \"from\": \"10.11.2023 10:10\",\r\n        \"to\": \"10.11.2023 20:20\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/v1/book",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by uuid",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYW5paWx0ZXJlc2hrbzEyM0BnbWFpbC5jb20iLCJpc3MiOiJMaWJyYXJ5U2VydmljZSIsImlhdCI6MTY5OTAxODgzNiwiZXhwIjoxNjk5NjIzNjM2fQ.-tEXOTxwAfSpIX8MUYkclbur8zYyPwKvTvywKHm8syfTI4Nf6tx7UCEqCzexzVdXwdijVHnqB_TpYI5jk1CBLg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/v1/book/51d76f15-1f92-4aee-8f61-c7e628387aab",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"book",
+								"51d76f15-1f92-4aee-8f61-c7e628387aab"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get page",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYW5paWx0ZXJlc2hrbzEyM0BnbWFpbC5jb20iLCJpc3MiOiJMaWJyYXJ5U2VydmljZSIsImlhdCI6MTY5OTAxODgzNiwiZXhwIjoxNjk5NjIzNjM2fQ.-tEXOTxwAfSpIX8MUYkclbur8zYyPwKvTvywKHm8syfTI4Nf6tx7UCEqCzexzVdXwdijVHnqB_TpYI5jk1CBLg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/v1/book",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYW5paWx0ZXJlc2hrbzEyM0BnbWFpbC5jb20iLCJpc3MiOiJMaWJyYXJ5U2VydmljZSIsImlhdCI6MTY5OTAxODgzNiwiZXhwIjoxNjk5NjIzNjM2fQ.-tEXOTxwAfSpIX8MUYkclbur8zYyPwKvTvywKHm8syfTI4Nf6tx7UCEqCzexzVdXwdijVHnqB_TpYI5jk1CBLg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"isbn\": \"1234567899999\",\r\n    \"title\": \"Ьла\",\r\n    \"genre\": \"DRAMA\",\r\n    \"description\": \"\",\r\n    \"author\": \"Пушкин\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/v1/book/51d76f15-1f92-4aee-8f61-c7e628387aab/dt_update/1699018851093",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"book",
+								"51d76f15-1f92-4aee-8f61-c7e628387aab",
+								"dt_update",
+								"1699018851093"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by Isbn",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYW5paWx0ZXJlc2hrbzEyM0BnbWFpbC5jb20iLCJpc3MiOiJMaWJyYXJ5U2VydmljZSIsImlhdCI6MTY5OTAxODgzNiwiZXhwIjoxNjk5NjIzNjM2fQ.-tEXOTxwAfSpIX8MUYkclbur8zYyPwKvTvywKHm8syfTI4Nf6tx7UCEqCzexzVdXwdijVHnqB_TpYI5jk1CBLg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/v1/book/isbn/1234567899999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"book",
+								"isbn",
+								"1234567899999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYW5paWx0ZXJlc2hrbzEyM0BnbWFpbC5jb20iLCJpc3MiOiJMaWJyYXJ5U2VydmljZSIsImlhdCI6MTY5OTAxODgzNiwiZXhwIjoxNjk5NjIzNjM2fQ.-tEXOTxwAfSpIX8MUYkclbur8zYyPwKvTvywKHm8syfTI4Nf6tx7UCEqCzexzVdXwdijVHnqB_TpYI5jk1CBLg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/v1/book/b3e672ed-d4a0-4599-8d8d-8d6dcdb31d7d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"book",
+								"b3e672ed-d4a0-4599-8d8d-8d6dcdb31d7d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get free",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYW5paWx0ZXJlc2hrb3cxMjNAZ21haWwuY29tIiwiaXNzIjoiTGlicmFyeVNlcnZpY2UiLCJpYXQiOjE2OTg5NTExMTMsImV4cCI6MTY5OTU1NTkxM30.TLjOlE0bOXQN-7zYRGhGLrkachtwQi8xpNkwV2NQV0yPCQqPO6nsOIa7XgRpSdo8QymAXk7687IEGqMxMWZ_4g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:90/book/free",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "90",
+							"path": [
+								"book",
+								"free"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LibraryService",
+			"item": [
+				{
+					"name": "get page",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYW5paWx0ZXJlc2hrbzEyM0BnbWFpbC5jb20iLCJpc3MiOiJMaWJyYXJ5U2VydmljZSIsImlhdCI6MTY5OTAxODgzNiwiZXhwIjoxNjk5NjIzNjM2fQ.-tEXOTxwAfSpIX8MUYkclbur8zYyPwKvTvywKHm8syfTI4Nf6tx7UCEqCzexzVdXwdijVHnqB_TpYI5jk1CBLg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/v1/book",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"book"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,10 @@
+package org.library.user_service.core.exception;
+
+public class LoginException extends RuntimeException{
+    public LoginException() {
+    }
+
+    public LoginException(String message) {
+        super(message);
+    }
+}

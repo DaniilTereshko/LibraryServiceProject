@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/library_service
+    username: postgres
+    password: R2-D2-F1-L1
+
+app:
+  user-url: http://localhost:89/internal/user
+
+server:
+  port: 92
